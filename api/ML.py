@@ -17,13 +17,16 @@ class MLAPI(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("name", required=True, type=str)
-        parser.add_argument("socialclass", required=True, type=str)
-        parser.add_argument("age", required=True, type=str)
+        parser.add_argument("socialclass", required=True, type=int)
+        parser.add_argument("age", required=True, type=int)
         parser.add_argument("sex", required=True, type=str)
-        parser.add_argument("siblings", required=True, type=str)
-        parser.add_argument("alone", required=True, type=str)
+        parser.add_argument("siblings", required=True, type=int)
+        parser.add_argument("family", required=True, type=int)
+        parser.add_argument("fare", required=True, type=int)
+        parser.add_argument("port", required=True, type=str)
+        parser.add_argument("alone", required=True, type=bool)
         args = parser.parse_args()
-        ml = ML(args["name"], args["class"],args["age"],args["sex"],args["siblings"],args["alone"])
+        ml = ML(args["name"], args["socialclass"],args["age"],args["sex"],args["siblings"],args["family"], args["fare"], args["port"], args["alone"])
 
         try:
             db.session.add(ml)
@@ -35,13 +38,15 @@ class MLAPI(Resource):
 
     def put(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("id", required=True, type=int)
-        parser.add_argument("name", type=str)
-        parser.add_argument("socialclass", type=str)
-        parser.add_argument("age", type=str)
-        parser.add_argument("sex", type=str)
-        parser.add_argument("siblings", type=str)
-        parser.add_argument("alone", type=str)
+        parser.add_argument("name", required=True, type=str)
+        parser.add_argument("socialclass", required=True, type=int)
+        parser.add_argument("age", required=True, type=int)
+        parser.add_argument("sex", required=True, type=str)
+        parser.add_argument("siblings", required=True, type=int)
+        parser.add_argument("family", required=True, type=int)
+        parser.add_argument("fare", required=True, type=int)
+        parser.add_argument("port", required=True, type=str)
+        parser.add_argument("alone", required=True, type=bool)
         args = parser.parse_args()
 
         try:
@@ -49,16 +54,22 @@ class MLAPI(Resource):
             if ml:
                 if args["name"] is not None:
                     ml.name = args["name"]
-                if args["class"] is not None:
+                if args["socialclass"] is not None:
                     ml.socialclass = args["socialclass"]
                 if args["age"] is not None:
                     ml.age = args["age"]
                 if args["sex"] is not None:
                     ml.sex = args["sex"]
                 if args["siblings"] is not None:
-                    ml.socialclass = args["siblings"]
+                    ml.siblings = args["siblings"]
+                if args["family"] is not None:
+                    ml.family = args["family"]
+                if args["fare"] is not None:
+                    ml.fare = args["fare"]
+                if args["port"] is not None:
+                    ml.port = args["port"]
                 if args["alone"] is not None:
-                    ml.socialclass = args["alone"]
+                    ml.alone = args["alone"]
                 db.session.commit()
                 return ml.to_dict(), 200
             else:
