@@ -1,22 +1,32 @@
-from sqlalchemy import Column, Integer, String
-from .. import db
+from sqlalchemy import Column, Integer, String, Boolean
+from __init__ import db
 
 class ML(db.Model):
     __tablename__ = "ml"
     id = Column(Integer, primary_key=True)
-    _username = Column(String, nullable=False)
-    _password = Column(String, nullable=False)
+    _name = Column(String, nullable=False)
+    _socialclass = Column(Integer, nullable=False)
+    _age = Column(Integer, nullable=False)
+    _sex = Column(String, nullable=False)
+    _siblings = Column(Integer, nullable=False)
+    _family = Column(Integer, nullable=False)
+    _fare = Column(Integer, nullable=False)
+    _port = Column(String, nullable=False)
+    _alone = Column(Boolean, nullable=False)
 
-    def __init__(self, name, socialclass, age, sex, siblings, alone):
+    def __init__(self, name, socialclass, age, sex, siblings, family, fare, port, alone):
         self._name = name
         self._socialclass = socialclass
         self._age = age
         self._sex = sex
         self._siblings = siblings
+        self._family = family
+        self._fare =  fare
+        self._port = port
         self._alone = alone
     
     def __repr__(self):
-        return "id='%s', name='%s', socialclass='%s, age='%s, sex='%s, siblings='%s, alone='%s '" % (self.id, self.name, self.socialclass, self.age, self.sex, self.siblings, self.alone)
+        return "id='%s', name='%s', socialclass='%d', age='%d', sex='%s', siblings='%d', family='%d', fare='%d', port='%s', alone='%s '" % (self.id, self.name, self.socialclass, self.age, self.sex, self.siblings, self.family, self.fare, self.port, self.alone)
     
     @property
     def name(self):
@@ -59,6 +69,30 @@ class ML(db.Model):
         self._siblings = value
         
     @property
+    def family(self):
+        return self._family
+    
+    @siblings.setter
+    def family(self, value):
+        self._family = value
+        
+    @property
+    def fare(self):
+        return self._fare
+    
+    @siblings.setter
+    def fare(self, value):
+        self._fare = value
+        
+    @property
+    def port(self):
+        return self._port
+    
+    @siblings.setter
+    def port(self, value):
+        self._port = value    
+        
+    @property
     def alone(self):
         return self._alone
     
@@ -67,7 +101,7 @@ class ML(db.Model):
         self._alone = value
 
     def to_dict(self):
-        return {"id": self.id, "name": self.name, "socialclass": self.socialclass,"age": self.age, "sex": self.sex, "siblings": self.siblings, "alone": self.alone,}
+        return {"id": self.id, "name": self.name, "socialclass": self.socialclass,"age": self.age, "sex": self.sex, "siblings": self.siblings, "family": self.family, "fare":self.fare, "port":self.port, "alone": self.alone}
     
 def init_ml():
     db.session.commit()

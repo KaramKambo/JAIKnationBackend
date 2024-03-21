@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
-from .. import db
-from ..model.ML import ML
+from __init__ import db
+from model.ML import ML
 
 ml_bp = Blueprint("ml", __name__)
 ml_api = Api(ml_bp)
