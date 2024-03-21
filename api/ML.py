@@ -3,7 +3,7 @@ from flask_restful import Api, Resource, reqparse
 from __init__ import db
 from model.ML import ML
 
-ml_bp = Blueprint("ml", __name__)
+ml_bp = Blueprint("ml", __name__, url_prefix = '/api/ml')
 ml_api = Api(ml_bp)
 
 class MLAPI(Resource):
@@ -102,5 +102,5 @@ class MLListAPI(Resource):
         return [ml.to_dict() for ml in mls]
 
 
-ml_api.add_resource(MLAPI, "/ml")
+ml_api.add_resource(MLAPI, "/")
 ml_api.add_resource(MLListAPI, "/mlList")
