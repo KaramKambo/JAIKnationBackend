@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, Float
 from __init__ import db
 
 class ML(db.Model):
@@ -13,8 +13,9 @@ class ML(db.Model):
     _fare = Column(Integer, nullable=False)
     _port = Column(String, nullable=False)
     _alone = Column(Boolean, nullable=False)
+    _chance = Column(Float, nullable=False)
 
-    def __init__(self, name, socialclass, age, sex, siblings, family, fare, port, alone):
+    def __init__(self, name, socialclass, age, sex, siblings, family, fare, port, alone, chance):
         self._name = name
         self._socialclass = socialclass
         self._age = age
@@ -24,9 +25,10 @@ class ML(db.Model):
         self._fare =  fare
         self._port = port
         self._alone = alone
+        self._chance = chance
     
     def __repr__(self):
-        return "id='%s', name='%s', socialclass='%d', age='%d', sex='%s', siblings='%d', family='%d', fare='%d', port='%s', alone='%s '" % (self.id, self.name, self.socialclass, self.age, self.sex, self.siblings, self.family, self.fare, self.port, self.alone)
+        return "id='%s', name='%s', socialclass='%d', age='%d', sex='%s', siblings='%d', family='%d', fare='%d', port='%s', alone='%s ', chance='%f'" % (self.id, self.name, self.socialclass, self.age, self.sex, self.siblings, self.family, self.fare, self.port, self.alone, self.chance)
     
     @property
     def name(self):
@@ -99,9 +101,17 @@ class ML(db.Model):
     @alone.setter
     def alone(self, value):
         self._alone = value
+        
+    @property
+    def chance(self):
+        return self._chance
+    
+    @chance.setter
+    def chance(self, value):
+        self._chance = value
 
     def to_dict(self):
-        return {"id": self.id, "name": self.name, "socialclass": self.socialclass,"age": self.age, "sex": self.sex, "siblings": self.siblings, "family": self.family, "fare":self.fare, "port":self.port, "alone": self.alone}
+        return {"id": self.id, "chance:": self.chance}
     
 def init_ml():
     db.session.commit()
