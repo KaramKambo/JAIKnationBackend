@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import OneHotEncoder
 
-ml_bp = Blueprint("ml", __name__)
+ml_bp = Blueprint("ml", __name__, url_prefix = '/api/ml')
 ml_api = Api(ml_bp)
 
 class MLAPI(Resource):
@@ -70,5 +70,5 @@ class MLListAPI(Resource):
         mls = db.session.query(ML).all()
         return [ml.to_dict() for ml in mls][-1]
 
-ml_api.add_resource(MLAPI, "/ml")
+ml_api.add_resource(MLAPI, "/")
 ml_api.add_resource(MLListAPI, "/mlList")
