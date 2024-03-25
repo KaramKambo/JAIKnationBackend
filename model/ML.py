@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, Float
+from sqlalchemy import Column, Integer, String, Float
 from __init__ import db
 
 class ML(db.Model):
@@ -28,7 +28,7 @@ class ML(db.Model):
         self._chance = chance
     
     def __repr__(self):
-        return "id='%s', name='%s', socialclass='%d', age='%d', sex='%s', siblings='%d', family='%d', fare='%d', port='%s', alone='%s ', chance='%f'" % (self.id, self.name, self.socialclass, self.age, self.sex, self.siblings, self.family, self.fare, self.port, self.alone, self.chance)
+        return "id='%s', name='%s', socialclass='%d', age='%d', sex='%s', siblings='%d', family='%d', fare='%d', port='%s', alone='%s', chance='%f'" % (self.id, self.name, self.socialclass, self.age, self.sex, self.siblings, self.family, self.fare, self.port, self.alone, self.chance)
     
     @property
     def name(self):
