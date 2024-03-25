@@ -12,7 +12,7 @@ class ML(db.Model):
     _family = Column(Integer, nullable=False)
     _fare = Column(Integer, nullable=False)
     _port = Column(String, nullable=False)
-    _alone = Column(Boolean, nullable=False)
+    _alone = Column(String, nullable=False)
     _chance = Column(Float, nullable=False)
 
     def __init__(self, name, socialclass, age, sex, siblings, family, fare, port, alone, chance):

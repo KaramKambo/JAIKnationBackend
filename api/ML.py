@@ -25,9 +25,8 @@ class MLAPI(Resource):
         parser.add_argument("family", required=True, type=int)
         parser.add_argument("fare", required=True, type=int)
         parser.add_argument("port", required=True, type=str)
-        parser.add_argument("alone", required=True, type=bool)
+        parser.add_argument("alone", required=True, type=str)
         args = parser.parse_args()
-        
         
         passenger = pd.DataFrame({
             'name': args["name"],
@@ -37,12 +36,12 @@ class MLAPI(Resource):
             'sibsp': args["siblings"],
             'parch': args["family"],
             'fare': args["fare"],
-            'embarked': args["port"]
+            'embarked': args["port"],
             'alone': args["alone"]
         })
         
-        passenger['sex'] = passenger['sex'].apply(lambda x: 1 if x == 'male' else 0)
-        passenger['alone'] = passenger['alone'].apply(lambda x: 1 if x == True else 0)
+        passenger['sex'] = passenger['sex'].apply(lambda x: 1 if x == 'm' else 0)
+        passenger['alone'] = passenger['alone'].apply(lambda x: 1 if x == 'y' else 0)
         
         enc = OneHotEncoder(handle_unknown='ignore')
 
