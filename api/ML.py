@@ -30,7 +30,6 @@ class MLAPI(Resource):
         
         titanic_data = sns.load_dataset('titanic')
         
-        
         passenger = pd.DataFrame({
             'name': [args["name"]],
             'pclass': [args["socialclass"]],

@@ -111,7 +111,7 @@ class ML(db.Model):
         self._chance = value
 
     def to_dict(self):
-        return {"id": self.id, "chance:": self.chance}
+        return {"id": self.id, "chance": self.chance}
     
 def init_ml():
     db.session.commit()
