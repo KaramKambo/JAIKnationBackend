@@ -46,8 +46,8 @@ class MLAPI(Resource):
         td = titanic_data
         td.drop(['alive', 'who', 'adult_male', 'class', 'embark_town', 'deck'], axis=1, inplace=True)
         td.dropna(inplace=True) # drop rows with at least one missing value, after dropping unuseful columns
-        td['sex'] = td['sex'].apply(lambda x: 1 if x == 'male' else 0)
-        td['alone'] = td['alone'].apply(lambda x: 1 if x == True else 0)
+        td['sex'] = td['sex'].apply(lambda x: 1 if x == 'm' else 0)
+        td['alone'] = td['alone'].apply(lambda x: 1 if x == 'y' else 0)
 
         # Encode categorical variables
         enc = OneHotEncoder(handle_unknown='ignore')
@@ -89,8 +89,8 @@ class MLAPI(Resource):
         new_passenger = passenger.copy()
 
         # Preprocess the new passenger data
-        new_passenger['sex'] = new_passenger['sex'].apply(lambda x: 1 if x == 'male' else 0)
-        new_passenger['alone'] = new_passenger['alone'].apply(lambda x: 1 if x == True else 0)
+        new_passenger['sex'] = new_passenger['sex'].apply(lambda x: 1 if x == 'm' else 0)
+        new_passenger['alone'] = new_passenger['alone'].apply(lambda x: 1 if x == 'y' else 0)
 
         # Encode 'embarked' variable
         onehot = enc.transform(new_passenger[['embarked']]).toarray()
